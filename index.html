@@ -1,0 +1,1585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>KYLA ADEL HARTANTO | Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --red: #E8001C;
+    --red-dark: #9B0013;
+    --red-bright: #FF1C38;
+    --black: #0A0A0A;
+    --black-2: #111111;
+    --white: #F5F5F0;
+    --yellow: #FFD700;
+    --gray: #1A1A1A;
+    --gray-2: #2A2A2A;
+    --panel-border: 3px solid var(--red);
+  }
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 500;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--red);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none;
+    z-index: 99999;
+    transition: transform 0.1s ease;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 2px solid var(--red);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none;
+    z-index: 99998;
+    transition: transform 0.15s ease, width 0.2s, height 0.2s;
+  }
+
+  /* INTRO CINEMATIC */
+  #intro-overlay {
+    position: fixed; inset: 0;
+    background: var(--red);
+    z-index: 10000;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    animation: introReveal 2.8s cubic-bezier(0.77,0,0.18,1) forwards;
+  }
+  .intro-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 12vw, 9rem);
+    color: var(--white);
+    letter-spacing: 0.15em;
+    animation: introText 2.8s cubic-bezier(0.77,0,0.18,1) forwards;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  .intro-sub {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: clamp(0.7rem, 2vw, 1rem);
+    color: var(--black);
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: introSub 2.8s 0.3s forwards;
+  }
+  @keyframes introReveal {
+    0% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+    60% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+    100% { clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); pointer-events: none; opacity: 0; }
+  }
+  @keyframes introText {
+    0%, 50% { transform: skewX(0); opacity: 1; }
+    80% { transform: skewX(-8deg) translateX(-20px); opacity: 0; }
+    100% { opacity: 0; }
+  }
+  @keyframes introSub {
+    0% { opacity: 0; } 30% { opacity: 1; } 80% { opacity: 0; } 100% { opacity: 0; }
+  }
+
+  /* NOISE OVERLAY */
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9000;
+    opacity: 0.4;
+  }
+
+  /* NAVBAR */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 clamp(1rem, 4vw, 3rem);
+    height: 60px;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--red);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.2em;
+    color: var(--red);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--white); }
+  .nav-links {
+    display: flex; align-items: center; gap: 1.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--white);
+    text-decoration: none;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    position: relative;
+    transition: color 0.2s;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 2px;
+    background: var(--red);
+    transition: width 0.25s ease;
+  }
+  .nav-links a:hover { color: var(--red); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .lang-toggle {
+    display: flex; align-items: center; gap: 0;
+    background: var(--gray-2);
+    border: 2px solid var(--red);
+    border-radius: 0;
+    overflow: hidden;
+    clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
+  }
+  .lang-btn {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    padding: 5px 14px;
+    background: transparent;
+    color: var(--white);
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .lang-btn.active {
+    background: var(--red);
+    color: var(--white);
+  }
+
+  .hamburger {
+    display: none;
+    flex-direction: column; gap: 5px;
+    cursor: pointer; background: none; border: none;
+  }
+  .hamburger span {
+    display: block; width: 24px; height: 2px;
+    background: var(--white);
+    transition: all 0.3s;
+  }
+
+  /* MOBILE NAV */
+  .mobile-nav {
+    display: none;
+    position: fixed; top: 60px; left: 0; right: 0;
+    background: rgba(10,10,10,0.98);
+    border-bottom: 2px solid var(--red);
+    z-index: 999;
+    padding: 1.5rem;
+    flex-direction: column; gap: 1rem;
+  }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--white);
+    text-decoration: none;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--gray-2);
+  }
+
+  /* SECTIONS */
+  section { position: relative; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: clamp(5rem, 10vw, 8rem) clamp(1.5rem, 6vw, 5rem) 4rem;
+    background: var(--black);
+    overflow: hidden;
+  }
+  .hero-bg-shapes {
+    position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+  }
+  .hero-bg-shapes::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    right: -5%;
+    width: 55vw; height: 110vh;
+    background: var(--red);
+    clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
+    opacity: 0.06;
+  }
+  .hero-bg-shapes::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: -5%;
+    width: 100%; height: 40%;
+    background: linear-gradient(to top right, rgba(232,0,28,0.08), transparent);
+  }
+  .hero-diagonal {
+    position: absolute;
+    top: 0; right: 0;
+    width: 45vw; height: 100vh;
+    background: var(--gray);
+    clip-path: polygon(30% 0, 100% 0, 100% 100%, 0% 100%);
+    opacity: 0.3;
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 900px; }
+  .hero-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.4em;
+    color: var(--red);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.5rem;
+    animation: fadeUp 0.8s 2.8s both;
+  }
+  .hero-tag::before {
+    content: ''; display: block;
+    width: 30px; height: 2px;
+    background: var(--red);
+  }
+  .hero-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 11vw, 9rem);
+    line-height: 0.9;
+    letter-spacing: 0.05em;
+    color: var(--white);
+    animation: heroSlide 0.9s 2.9s cubic-bezier(0.22,1,0.36,1) both;
+  }
+  .hero-name .red { color: var(--red); }
+  .hero-subtitle {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+    color: var(--white);
+    margin-top: 1.2rem;
+    height: 2em;
+    animation: fadeUp 0.8s 3.1s both;
+  }
+  .cursor-blink {
+    display: inline-block;
+    width: 3px; height: 1.1em;
+    background: var(--red);
+    animation: blink 0.7s infinite;
+    vertical-align: middle;
+    margin-left: 2px;
+  }
+  @keyframes blink { 0%,100% {opacity:1} 50% {opacity:0} }
+  .hero-cta {
+    display: flex; flex-wrap: wrap; gap: 1rem;
+    margin-top: 2.5rem;
+    animation: fadeUp 0.8s 3.3s both;
+  }
+  .btn-primary {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.2em;
+    padding: 0.7rem 2rem;
+    background: var(--red);
+    color: var(--white);
+    border: none;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .btn-primary::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: var(--white);
+    transform: translateX(-100%) skewX(-15deg);
+    transition: transform 0.3s;
+    mix-blend-mode: overlay;
+  }
+  .btn-primary:hover::before { transform: translateX(100%) skewX(-15deg); }
+  .btn-primary:hover { transform: skewX(-3deg) scale(1.04); box-shadow: 4px 4px 0 var(--red-dark); }
+  .btn-secondary {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.2em;
+    padding: 0.7rem 2rem;
+    background: transparent;
+    color: var(--white);
+    border: 2px solid var(--white);
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover {
+    background: var(--white);
+    color: var(--black);
+    transform: skewX(-3deg);
+  }
+  .hero-stats {
+    display: flex; gap: 2.5rem; flex-wrap: wrap;
+    margin-top: 3rem;
+    animation: fadeUp 0.8s 3.5s both;
+  }
+  .hero-stat { text-align: center; }
+  .hero-stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    color: var(--red);
+    line-height: 1;
+  }
+  .hero-stat-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: rgba(245,245,240,0.5);
+    text-transform: uppercase;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes heroSlide {
+    from { opacity: 0; transform: translateX(-60px) skewX(-5deg); }
+    to { opacity: 1; transform: translateX(0) skewX(0); }
+  }
+
+  /* SECTION DIVIDER */
+  .scene-divider {
+    height: 60px;
+    background: var(--red);
+    clip-path: polygon(0 0, 100% 60%, 100% 100%, 0 100%);
+    margin-top: -2px;
+  }
+  .scene-divider-rev {
+    height: 60px;
+    background: var(--red);
+    clip-path: polygon(0 40%, 100% 0, 100% 100%, 0 100%);
+    margin-bottom: -2px;
+  }
+
+  /* ABOUT */
+  #about {
+    background: var(--black-2);
+    padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 6vw, 5rem);
+  }
+  .section-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.5em;
+    color: var(--red);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+  .section-label::after {
+    content: ''; flex: 1;
+    height: 1px; background: var(--red);
+    opacity: 0.4; max-width: 80px;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 7vw, 5.5rem);
+    line-height: 0.9;
+    letter-spacing: 0.05em;
+    margin-bottom: 2.5rem;
+  }
+
+  .confidant-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+    max-width: 1100px;
+  }
+  @media (max-width: 768px) {
+    .confidant-card { grid-template-columns: 1fr; }
+  }
+  .confidant-portrait {
+    position: relative;
+    aspect-ratio: 3/4;
+    max-width: 320px;
+    background: var(--gray);
+    border: var(--panel-border);
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .portrait-inner {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 1rem;
+    background: linear-gradient(135deg, var(--gray-2), var(--black));
+    font-family: 'Bebas Neue', sans-serif;
+  }
+  .portrait-icon {
+    font-size: 5rem; line-height: 1;
+    filter: drop-shadow(0 0 20px rgba(232,0,28,0.6));
+  }
+  .portrait-arcana {
+    font-size: 1.5rem;
+    letter-spacing: 0.3em;
+    color: var(--red);
+  }
+  .portrait-rank {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: rgba(245,245,240,0.5);
+  }
+  .portrait-corner {
+    position: absolute;
+    top: 10px; right: 10px;
+    width: 40px; height: 40px;
+    border-top: 2px solid var(--red);
+    border-right: 2px solid var(--red);
+  }
+  .portrait-corner-bl {
+    position: absolute;
+    bottom: 10px; left: 10px;
+    width: 40px; height: 40px;
+    border-bottom: 2px solid var(--red);
+    border-left: 2px solid var(--red);
+  }
+
+  .confidant-info { padding-left: 1rem; }
+  .confidant-name-en {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--red);
+    letter-spacing: 0.2em;
+    margin-bottom: 0.3rem;
+  }
+  .confidant-arcana-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: rgba(245,245,240,0.5);
+    margin-bottom: 1.5rem;
+  }
+  .confidant-text {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: rgba(245,245,240,0.85);
+    margin-bottom: 1.5rem;
+  }
+  .info-chips {
+    display: flex; flex-wrap: wrap; gap: 0.6rem;
+  }
+  .chip {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    padding: 4px 12px;
+    border: 1px solid var(--red);
+    color: var(--red);
+    clip-path: polygon(4px 0, 100% 0, calc(100% - 4px) 100%, 0 100%);
+    text-transform: uppercase;
+  }
+
+  /* EXPERIENCE */
+  #experience {
+    background: var(--black);
+    padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 6vw, 5rem);
+  }
+  .timeline {
+    position: relative;
+    max-width: 900px;
+    margin-top: 2rem;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 20px; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--red), transparent);
+  }
+  .timeline-item {
+    padding-left: 60px;
+    margin-bottom: 3rem;
+    position: relative;
+    opacity: 0; transform: translateX(-30px);
+    transition: opacity 0.6s, transform 0.6s;
+  }
+  .timeline-item.visible { opacity: 1; transform: translateX(0); }
+  .timeline-dot {
+    position: absolute;
+    left: 12px; top: 8px;
+    width: 18px; height: 18px;
+    background: var(--red);
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  }
+  .exp-card {
+    background: var(--gray);
+    border-left: 3px solid var(--red);
+    padding: 1.5rem;
+    clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 0 100%);
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .exp-card:hover {
+    transform: translateX(6px);
+    box-shadow: -4px 0 0 var(--red-bright);
+  }
+  .exp-period {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--red);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .exp-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.2rem;
+  }
+  .exp-company {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    color: rgba(245,245,240,0.5);
+    letter-spacing: 0.2em;
+    margin-bottom: 1rem;
+  }
+  .exp-list {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 0.4rem;
+  }
+  .exp-list li {
+    font-size: 0.9rem;
+    color: rgba(245,245,240,0.75);
+    line-height: 1.5;
+    padding-left: 1rem;
+    position: relative;
+  }
+  .exp-list li::before {
+    content: '▶';
+    position: absolute; left: 0;
+    font-size: 0.5rem;
+    color: var(--red);
+    top: 5px;
+  }
+
+  /* SKILLS */
+  #skills {
+    background: var(--black-2);
+    padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 6vw, 5rem);
+  }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1100px;
+    margin-top: 2rem;
+  }
+  .skill-panel {
+    background: var(--gray);
+    border: 2px solid var(--gray-2);
+    padding: 1.5rem;
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+    position: relative;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .skill-panel:hover {
+    border-color: var(--red);
+    transform: skewX(-1deg);
+  }
+  .skill-panel-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.2em;
+    color: var(--red);
+    margin-bottom: 1.2rem;
+  }
+  .stat-row { margin-bottom: 1rem; }
+  .stat-label {
+    display: flex; justify-content: space-between;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: rgba(245,245,240,0.7);
+    margin-bottom: 4px;
+  }
+  .stat-bar-bg {
+    height: 8px;
+    background: var(--black);
+    position: relative;
+    clip-path: polygon(2px 0, 100% 0, calc(100% - 2px) 100%, 0 100%);
+  }
+  .stat-bar-fill {
+    height: 100%;
+    background: linear-gradient(to right, var(--red-dark), var(--red-bright));
+    width: 0;
+    transition: width 1.2s cubic-bezier(0.22,1,0.36,1);
+    position: relative;
+  }
+  .stat-bar-fill::after {
+    content: '';
+    position: absolute; right: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: var(--yellow);
+    opacity: 0.8;
+  }
+  .soft-skills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+  .soft-chip {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    padding: 5px 12px;
+    background: var(--black);
+    border: 1px solid rgba(232,0,28,0.4);
+    color: rgba(245,245,240,0.8);
+    clip-path: polygon(3px 0, 100% 0, calc(100% - 3px) 100%, 0 100%);
+    transition: all 0.2s;
+  }
+  .soft-chip:hover {
+    background: var(--red);
+    color: var(--white);
+    border-color: var(--red);
+  }
+
+  /* ORGANIZATION */
+  #organization {
+    background: var(--black);
+    padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 6vw, 5rem);
+  }
+  .org-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    max-width: 1100px;
+    margin-top: 2rem;
+  }
+  .org-card {
+    background: var(--gray);
+    border-top: 3px solid var(--red);
+    padding: 1.5rem;
+    position: relative;
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.5s, transform 0.5s, box-shadow 0.2s;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
+  }
+  .org-card.visible { opacity: 1; transform: translateY(0); }
+  .org-card:hover {
+    box-shadow: 0 8px 0 var(--red);
+    transform: translateY(-4px);
+  }
+  .org-icon {
+    font-size: 2rem; margin-bottom: 0.8rem;
+    filter: drop-shadow(0 0 8px rgba(232,0,28,0.5));
+  }
+  .org-period {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--red);
+    margin-bottom: 0.4rem;
+  }
+  .org-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.3rem;
+  }
+  .org-org {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    color: rgba(245,245,240,0.45);
+    letter-spacing: 0.15em;
+    margin-bottom: 0.8rem;
+  }
+  .org-desc {
+    font-size: 0.85rem;
+    color: rgba(245,245,240,0.65);
+    line-height: 1.5;
+  }
+
+  /* CONTACT */
+  #contact {
+    background: var(--black-2);
+    padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 6vw, 5rem);
+  }
+  .contact-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    max-width: 1000px;
+    margin-top: 2rem;
+    align-items: start;
+  }
+  @media (max-width: 768px) {
+    .contact-wrapper { grid-template-columns: 1fr; }
+  }
+  .chat-box {
+    background: var(--gray);
+    border: 2px solid var(--red);
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+    overflow: hidden;
+  }
+  .chat-header {
+    background: var(--red);
+    padding: 0.8rem 1.2rem;
+    display: flex; align-items: center; gap: 0.8rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+  }
+  .chat-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--white); opacity: 0.7; }
+  .chat-messages {
+    padding: 1.2rem;
+    min-height: 100px;
+    display: flex; flex-direction: column; gap: 0.8rem;
+  }
+  .chat-bubble {
+    background: var(--black);
+    border-left: 2px solid var(--red);
+    padding: 0.7rem 1rem;
+    font-size: 0.85rem;
+    color: rgba(245,245,240,0.8);
+    max-width: 85%;
+    line-height: 1.5;
+    position: relative;
+    animation: bubbleIn 0.4s ease;
+  }
+  @keyframes bubbleIn {
+    from { opacity:0; transform: translateX(-10px); }
+    to { opacity:1; transform: translateX(0); }
+  }
+  .chat-input-area { padding: 1rem; border-top: 1px solid var(--gray-2); }
+  .form-field { margin-bottom: 0.8rem; }
+  .form-field label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--red);
+    display: block;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+  }
+  .form-field input, .form-field textarea {
+    width: 100%;
+    background: var(--black);
+    border: 1px solid var(--gray-2);
+    border-bottom: 2px solid var(--red);
+    color: var(--white);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.95rem;
+    padding: 0.5rem 0.7rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-field input:focus, .form-field textarea:focus {
+    border-color: var(--red);
+    box-shadow: 0 2px 0 var(--red);
+  }
+  .form-field textarea { resize: vertical; min-height: 80px; }
+  .form-status {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    display: none;
+  }
+  .form-status.success { color: #00E676; display: block; }
+  .form-status.error { color: var(--red-bright); display: block; }
+
+  .contact-info { display: flex; flex-direction: column; gap: 1.2rem; }
+  .contact-info-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.5rem;
+  }
+  .contact-link {
+    display: flex; align-items: center; gap: 0.8rem;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: rgba(245,245,240,0.7);
+    text-decoration: none;
+    transition: color 0.2s;
+    padding: 0.8rem;
+    background: var(--gray);
+    border-left: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  .contact-link:hover {
+    border-left-color: var(--red);
+    color: var(--white);
+    transform: translateX(4px);
+  }
+  .contact-link-icon { font-size: 1.2rem; }
+
+  /* FOOTER */
+  footer {
+    background: var(--black);
+    border-top: 2px solid var(--red);
+    padding: 2rem clamp(1.5rem, 6vw, 5rem);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.2em;
+    color: var(--red);
+  }
+  .footer-logo span { color: rgba(245,245,240,0.3); }
+  .footer-copy {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: rgba(245,245,240,0.3);
+  }
+
+  /* WHATSAPP FAB */
+  .wa-fab {
+    position: fixed;
+    bottom: 2rem; right: 2rem;
+    z-index: 500;
+    width: 56px; height: 56px;
+    background: #25D366;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.3);
+  }
+  .wa-fab:hover {
+    transform: scale(1.1) rotate(-5deg);
+    box-shadow: 0 8px 30px rgba(37,211,102,0.5);
+  }
+
+  /* GLITCH */
+  .glitch {
+    position: relative;
+  }
+  .glitch::before, .glitch::after {
+    content: attr(data-text);
+    position: absolute; top: 0; left: 0;
+    font-family: inherit; font-size: inherit;
+    width: 100%;
+  }
+  .glitch::before {
+    color: var(--red);
+    animation: glitch1 3s infinite;
+    clip-path: polygon(0 30%, 100% 30%, 100% 50%, 0 50%);
+    transform: translateX(-2px);
+  }
+  .glitch::after {
+    color: cyan;
+    animation: glitch2 3s infinite;
+    clip-path: polygon(0 60%, 100% 60%, 100% 80%, 0 80%);
+    transform: translateX(2px);
+    opacity: 0.5;
+  }
+  @keyframes glitch1 {
+    0%,85%,100% { transform: translateX(0); opacity: 0; }
+    86% { transform: translateX(-3px); opacity: 0.6; }
+    88% { transform: translateX(3px); opacity: 0.6; }
+    90% { transform: translateX(0); opacity: 0; }
+  }
+  @keyframes glitch2 {
+    0%,85%,100% { transform: translateX(0); opacity: 0; }
+    87% { transform: translateX(3px); opacity: 0.4; }
+    89% { transform: translateX(-3px); opacity: 0.4; }
+    91% { transform: translateX(0); opacity: 0; }
+  }
+
+  /* SCROLL ANIMATIONS */
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.7s, transform 0.7s;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* RED SCAN LINE */
+  #hero::before {
+    content: '';
+    position: absolute;
+    left: 0; right: 0;
+    height: 2px;
+    background: rgba(232,0,28,0.4);
+    animation: scanline 6s linear infinite;
+    z-index: 3;
+    pointer-events: none;
+  }
+  @keyframes scanline {
+    0% { top: -2px; }
+    100% { top: 100%; }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .hero-stats { gap: 1.5rem; }
+    .timeline::before { left: 10px; }
+    .timeline-item { padding-left: 35px; }
+    .timeline-dot { left: 2px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- INTRO OVERLAY -->
+<div id="intro-overlay">
+  <div class="intro-name">KYLA</div>
+  <div class="intro-sub">Loading Confidant Data...</div>
+</div>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="#hero" class="nav-logo">KYL<span>A</span></a>
+  <ul class="nav-links">
+    <li><a href="#about" data-i18n="nav_about">About</a></li>
+    <li><a href="#experience" data-i18n="nav_exp">Experience</a></li>
+    <li><a href="#skills" data-i18n="nav_skills">Skills</a></li>
+    <li><a href="#organization" data-i18n="nav_org">Organization</a></li>
+    <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:1rem;">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('id')">ID</button>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobile-nav">
+  <a href="#about" data-i18n="nav_about" onclick="closeMobile()">About</a>
+  <a href="#experience" data-i18n="nav_exp" onclick="closeMobile()">Experience</a>
+  <a href="#skills" data-i18n="nav_skills" onclick="closeMobile()">Skills</a>
+  <a href="#organization" data-i18n="nav_org" onclick="closeMobile()">Organization</a>
+  <a href="#contact" data-i18n="nav_contact" onclick="closeMobile()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-shapes"></div>
+  <div class="hero-diagonal"></div>
+  <div class="hero-content">
+    <div class="hero-tag" data-i18n="hero_tag">Tax Professional</div>
+    <h1 class="hero-name glitch" data-text="KYLA ADEL HARTANTO">
+      KYLA<br><span class="red">ADEL</span><br>HARTANTO
+    </h1>
+    <div class="hero-subtitle">
+      <span id="typing-text"></span><span class="cursor-blink"></span>
+    </div>
+    <div class="hero-cta">
+      <a href="cv.pdf" download class="btn-primary" data-i18n="btn_cv">⬇ Download CV</a>
+      <a href="#contact" class="btn-secondary" data-i18n="btn_contact">✉ Contact Me</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">3.76</div>
+        <div class="hero-stat-label" data-i18n="stat_gpa">GPA</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">2+</div>
+        <div class="hero-stat-label" data-i18n="stat_intern">Internships</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">7+</div>
+        <div class="hero-stat-label" data-i18n="stat_events">Events Organized</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<div class="scene-divider-rev" style="background:var(--black-2)"></div>
+<section id="about">
+  <div class="section-label reveal">◆ <span data-i18n="about_label">Confidant Profile</span></div>
+  <h2 class="section-title reveal glitch" data-text="ABOUT ME" data-i18n="about_title">ABOUT ME</h2>
+  <div class="confidant-card reveal">
+    <div class="confidant-portrait">
+      <div class="portrait-inner">
+        <div class="portrait-icon">⚖️</div>
+        <div class="portrait-arcana" data-i18n="about_arcana">THE JUSTICE</div>
+        <div class="portrait-rank" data-i18n="about_rank">CONFIDANT RANK MAX</div>
+      </div>
+      <div class="portrait-corner"></div>
+      <div class="portrait-corner-bl"></div>
+    </div>
+    <div class="confidant-info">
+      <div class="confidant-name-en">KYLA ADEL HARTANTO</div>
+      <div class="confidant-arcana-tag" data-i18n="about_uni">UNIVERSITAS BRAWIJAYA · TAXATION · 2021–2025</div>
+      <p class="confidant-text" data-i18n="about_text">
+        Fresh graduate in Taxation from Universitas Brawijaya (GPA 3.76/4.00) with internship experience in corporate taxation and financial tax analysis. Proficient in SAP, DJP Online, and Power BI. Currently pursuing Brevet A &amp; B certification.
+      </p>
+      <div class="info-chips">
+        <span class="chip">SAP</span>
+        <span class="chip">DJP Online</span>
+        <span class="chip">Power BI</span>
+        <span class="chip">VAT</span>
+        <span class="chip">PPh 21/23/26</span>
+        <span class="chip">Brevet AB</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<div class="scene-divider" style="background:var(--black)"></div>
+<section id="experience">
+  <div class="section-label reveal">◆ <span data-i18n="exp_label">Mission Log</span></div>
+  <h2 class="section-title reveal glitch" data-text="EXPERIENCE" data-i18n="exp_title">EXPERIENCE</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="exp-card">
+        <div class="exp-period">Sep 2024 – Dec 2024</div>
+        <div class="exp-title" data-i18n="exp1_title">TAX INTERN</div>
+        <div class="exp-company">PT TRI ADI BERSAMA · Kuningan, Jakarta Selatan</div>
+        <ul class="exp-list" id="exp1-list">
+          <li data-i18n="exp1_1">Created and processed 100+ tax invoices for monthly tax filings.</li>
+          <li data-i18n="exp1_2">Compiled and distributed 1,000+ withholding tax slips to clients.</li>
+          <li data-i18n="exp1_3">Prepared monthly VAT and Income Tax reports for 4 consecutive months.</li>
+          <li data-i18n="exp1_4">Filed company document archives covering 6 years of records.</li>
+          <li data-i18n="exp1_5">Tracked incoming withholding slips from customers accurately.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="exp-card">
+        <div class="exp-period">Feb 2024 – Jun 2024</div>
+        <div class="exp-title" data-i18n="exp2_title">FINANCIAL ANALYST INTERN</div>
+        <div class="exp-company">PT ASTRA HONDA MOTOR · Sunter, Jakarta Utara</div>
+        <ul class="exp-list" id="exp2-list">
+          <li data-i18n="exp2_1">Validated tax rates for PPh 21, 23, and 26 against internal financial data.</li>
+          <li data-i18n="exp2_2">Created deduction receipts via SAP and DJP Online for monthly tax compliance.</li>
+          <li data-i18n="exp2_3">Managed COD COR entries in SAP and DJP Online throughout the internship.</li>
+          <li data-i18n="exp2_4">Reported monthly SPT by recording deposit evidence via DJP Online.</li>
+          <li data-i18n="exp2_5">Leveraged Power BI to analyze tax data and produce management reports.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<div class="scene-divider-rev" style="background:var(--black-2)"></div>
+<section id="skills">
+  <div class="section-label reveal">◆ <span data-i18n="skills_label">Character Stats</span></div>
+  <h2 class="section-title reveal glitch" data-text="SKILLS" data-i18n="skills_title">SKILLS</h2>
+  <div class="skills-grid">
+    <div class="skill-panel reveal">
+      <div class="skill-panel-title" data-i18n="skills_hard">HARD SKILLS</div>
+      <div class="stat-row">
+        <div class="stat-label"><span>SAP</span><span>90</span></div>
+        <div class="stat-bar-bg"><div class="stat-bar-fill" data-val="90"></div></div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-label"><span>DJP Online</span><span>92</span></div>
+        <div class="stat-bar-bg"><div class="stat-bar-fill" data-val="92"></div></div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-label"><span>Power BI</span><span>80</span></div>
+        <div class="stat-bar-bg"><div class="stat-bar-fill" data-val="80"></div></div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-label"><span>Microsoft Excel</span><span>85</span></div>
+        <div class="stat-bar-bg"><div class="stat-bar-fill" data-val="85"></div></div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-label"><span>Canva</span><span>78</span></div>
+        <div class="stat-bar-bg"><div class="stat-bar-fill" data-val="78"></div></div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-label"><span data-i18n="skill_tax">Tax Compliance</span><span>90</span></div>
+        <div class="stat-bar-bg"><div class="stat-bar-fill" data-val="90"></div></div>
+      </div>
+    </div>
+    <div class="skill-panel reveal">
+      <div class="skill-panel-title" data-i18n="skills_soft">SOFT SKILLS</div>
+      <div class="soft-skills" id="soft-skills-container">
+        <span class="soft-chip" data-i18n="soft1">Communicative</span>
+        <span class="soft-chip" data-i18n="soft2">Problem Solver</span>
+        <span class="soft-chip" data-i18n="soft3">Adaptive</span>
+        <span class="soft-chip" data-i18n="soft4">Critical Thinker</span>
+        <span class="soft-chip" data-i18n="soft5">Initiative</span>
+        <span class="soft-chip" data-i18n="soft6">Responsible</span>
+        <span class="soft-chip" data-i18n="soft7">Discipline</span>
+        <span class="soft-chip" data-i18n="soft8">Flexible</span>
+        <span class="soft-chip" data-i18n="soft9">Detail-Oriented</span>
+        <span class="soft-chip" data-i18n="soft10">Team Player</span>
+      </div>
+      <div style="margin-top:1.5rem;">
+        <div class="skill-panel-title" style="font-size:1.1rem;" data-i18n="skills_lang">LANGUAGES</div>
+        <div class="stat-row">
+          <div class="stat-label"><span data-i18n="lang1">Indonesian (Native)</span><span>100</span></div>
+          <div class="stat-bar-bg"><div class="stat-bar-fill" data-val="100"></div></div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label"><span data-i18n="lang2">English</span><span>75</span></div>
+          <div class="stat-bar-bg"><div class="stat-bar-fill" data-val="75"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ORGANIZATION -->
+<div class="scene-divider" style="background:var(--black)"></div>
+<section id="organization">
+  <div class="section-label reveal">◆ <span data-i18n="org_label">Phantom Squad</span></div>
+  <h2 class="section-title reveal glitch" data-text="ORGANIZATION" data-i18n="org_title">ORGANIZATION</h2>
+  <div class="org-grid">
+    <div class="org-card">
+      <div class="org-icon">🎵</div>
+      <div class="org-period">Feb 2022 – Dec 2022</div>
+      <div class="org-title" data-i18n="org1_title">Event Organizer Staff</div>
+      <div class="org-org">AMC Malang</div>
+      <div class="org-desc" data-i18n="org1_desc">Organized 7 events at national and campus levels including concerts, competitions, and merchandise sales.</div>
+    </div>
+    <div class="org-card">
+      <div class="org-icon">🎸</div>
+      <div class="org-period">Oct 2022 – Nov 2022</div>
+      <div class="org-title" data-i18n="org2_title">Chief Executive</div>
+      <div class="org-org">AMC Jamming Routine</div>
+      <div class="org-desc" data-i18n="org2_desc">Led an event with 97 participants and 7 bands, managing venue, concept, and 3rd party coordination.</div>
+    </div>
+    <div class="org-card">
+      <div class="org-icon">💰</div>
+      <div class="org-period">Jul 2022 – Nov 2022</div>
+      <div class="org-title" data-i18n="org3_title">Fundraising Staff</div>
+      <div class="org-org">TRILOFIA 2022</div>
+      <div class="org-desc" data-i18n="org3_desc">Raised funds targeting 4 million rupiah, secured 2 sponsorships, and held an event with 500 participants.</div>
+    </div>
+    <div class="org-card">
+      <div class="org-icon">📊</div>
+      <div class="org-period">Mar 2022 – Jul 2022</div>
+      <div class="org-title" data-i18n="org4_title">CO Fundraising</div>
+      <div class="org-org">EO Summit</div>
+      <div class="org-desc" data-i18n="org4_desc">Co-led fundraising for 2 million rupiah target, monitored 24 committees, held event with 18 teams.</div>
+    </div>
+    <div class="org-card">
+      <div class="org-icon">🏘️</div>
+      <div class="org-period">Jul 2023 – Aug 2023</div>
+      <div class="org-title" data-i18n="org5_title">Treasurer</div>
+      <div class="org-org">Mahasiswa Membangun Desa (MMD)</div>
+      <div class="org-desc" data-i18n="org5_desc">Managed 2 million rupiah budget for 14 programs, prepared financial proposals, and daily bookkeeping.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="scene-divider-rev" style="background:var(--black-2)"></div>
+<section id="contact">
+  <div class="section-label reveal">◆ <span data-i18n="contact_label">Send a Message</span></div>
+  <h2 class="section-title reveal glitch" data-text="CONTACT" data-i18n="contact_title">CONTACT</h2>
+  <div class="contact-wrapper">
+    <div class="chat-box reveal">
+      <div class="chat-header">
+        <div class="chat-dot"></div>
+        <div class="chat-dot"></div>
+        <span data-i18n="chat_header">SEND MESSAGE</span>
+      </div>
+      <div class="chat-messages" id="chat-messages">
+        <div class="chat-bubble" data-i18n="chat_intro">
+          Hey! Let's connect. Fill in the form below and I'll get back to you!
+        </div>
+      </div>
+      <div class="chat-input-area">
+        <div class="form-field">
+          <label data-i18n="form_name">YOUR NAME</label>
+          <input type="text" id="form-name" placeholder="..." data-i18n-placeholder="placeholder_name"/>
+        </div>
+        <div class="form-field">
+          <label data-i18n="form_email">YOUR EMAIL</label>
+          <input type="email" id="form-email" placeholder="..." data-i18n-placeholder="placeholder_email"/>
+        </div>
+        <div class="form-field">
+          <label data-i18n="form_message">MESSAGE</label>
+          <textarea id="form-message" placeholder="..." data-i18n-placeholder="placeholder_msg"></textarea>
+        </div>
+        <button class="btn-primary" style="width:100%;justify-content:center;" onclick="submitForm()" data-i18n="btn_send">▶ SEND MESSAGE</button>
+        <div class="form-status" id="form-status"></div>
+      </div>
+    </div>
+    <div class="contact-info reveal">
+      <div class="contact-info-title" data-i18n="contact_reach">REACH ME AT</div>
+      <a href="tel:+6285831480838" class="contact-link">
+        <span class="contact-link-icon">📞</span>
+        <span>+62 858 3148 0838</span>
+      </a>
+      <a href="mailto:hartantokyla7@gmail.com" class="contact-link">
+        <span class="contact-link-icon">✉️</span>
+        <span>hartantokyla7@gmail.com</span>
+      </a>
+      <a href="https://www.linkedin.com/in/kylaadelhartanto" target="_blank" class="contact-link">
+        <span class="contact-link-icon">💼</span>
+        <span>linkedin.com/in/kylaadelhartanto</span>
+      </a>
+      <a href="https://wa.me/6285831480838" target="_blank" class="contact-link">
+        <span class="contact-link-icon">💬</span>
+        <span>WhatsApp</span>
+      </a>
+      <div style="margin-top:1.5rem;">
+        <a href="cv.pdf" download class="btn-primary" style="display:inline-flex;" data-i18n="btn_cv">⬇ Download CV</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">KYL<span>A</span></div>
+  <div class="footer-copy" data-i18n="footer">© 2025 Kyla Adel Hartanto · Solo, Indonesia</div>
+</footer>
+
+<!-- WHATSAPP FAB -->
+<a href="https://wa.me/6285831480838" target="_blank" class="wa-fab" title="WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<script>
+// ========== I18N ==========
+const i18n = {
+  en: {
+    nav_about: "About",
+    nav_exp: "Experience",
+    nav_skills: "Skills",
+    nav_org: "Organization",
+    nav_contact: "Contact",
+    hero_tag: "Tax Professional",
+    hero_typing: ["Tax Enthusiast | Future Tax Expert", "SAP & Power BI Proficient", "Brevet A & B Certified"],
+    btn_cv: "⬇ Download CV",
+    btn_contact: "✉ Contact Me",
+    stat_gpa: "GPA",
+    stat_intern: "Internships",
+    stat_events: "Events Organized",
+    about_label: "Confidant Profile",
+    about_title: "ABOUT ME",
+    about_arcana: "THE JUSTICE",
+    about_rank: "CONFIDANT RANK MAX",
+    about_uni: "UNIVERSITAS BRAWIJAYA · TAXATION · 2021–2025",
+    about_text: "Fresh graduate in Taxation from Universitas Brawijaya (GPA 3.76/4.00) with internship experience in corporate taxation and financial tax analysis. Proficient in SAP, DJP Online, and Power BI. Currently pursuing Brevet A & B certification.",
+    exp_label: "Mission Log",
+    exp_title: "EXPERIENCE",
+    exp1_title: "TAX INTERN",
+    exp1_1: "Created and processed 100+ tax invoices for monthly tax filings.",
+    exp1_2: "Compiled and distributed 1,000+ withholding tax slips to clients.",
+    exp1_3: "Prepared monthly VAT and Income Tax reports for 4 consecutive months.",
+    exp1_4: "Filed company document archives covering 6 years of records.",
+    exp1_5: "Tracked incoming withholding slips from customers accurately.",
+    exp2_title: "FINANCIAL ANALYST INTERN",
+    exp2_1: "Validated tax rates for PPh 21, 23, and 26 against internal financial data.",
+    exp2_2: "Created deduction receipts via SAP and DJP Online for monthly tax compliance.",
+    exp2_3: "Managed COD COR entries in SAP and DJP Online throughout the internship.",
+    exp2_4: "Reported monthly SPT by recording deposit evidence via DJP Online.",
+    exp2_5: "Leveraged Power BI to analyze tax data and produce management reports.",
+    skills_label: "Character Stats",
+    skills_title: "SKILLS",
+    skills_hard: "HARD SKILLS",
+    skills_soft: "SOFT SKILLS",
+    skills_lang: "LANGUAGES",
+    skill_tax: "Tax Compliance",
+    soft1: "Communicative", soft2: "Problem Solver", soft3: "Adaptive",
+    soft4: "Critical Thinker", soft5: "Initiative", soft6: "Responsible",
+    soft7: "Discipline", soft8: "Flexible", soft9: "Detail-Oriented", soft10: "Team Player",
+    lang1: "Indonesian (Native)", lang2: "English",
+    org_label: "Phantom Squad",
+    org_title: "ORGANIZATION",
+    org1_title: "Event Organizer Staff",
+    org1_desc: "Organized 7 events at national and campus levels including concerts, competitions, and merchandise sales.",
+    org2_title: "Chief Executive",
+    org2_desc: "Led an event with 97 participants and 7 bands, managing venue, concept, and 3rd party coordination.",
+    org3_title: "Fundraising Staff",
+    org3_desc: "Raised funds targeting 4 million rupiah, secured 2 sponsorships, and held an event with 500 participants.",
+    org4_title: "CO Fundraising",
+    org4_desc: "Co-led fundraising for 2 million rupiah target, monitored 24 committees, held event with 18 teams.",
+    org5_title: "Treasurer",
+    org5_desc: "Managed 2 million rupiah budget for 14 programs, prepared financial proposals, and daily bookkeeping.",
+    contact_label: "Send a Message",
+    contact_title: "CONTACT",
+    chat_header: "SEND MESSAGE",
+    chat_intro: "Hey! Let's connect. Fill in the form below and I'll get back to you!",
+    form_name: "YOUR NAME",
+    form_email: "YOUR EMAIL",
+    form_message: "MESSAGE",
+    placeholder_name: "Your name...",
+    placeholder_email: "your@email.com",
+    placeholder_msg: "Write your message here...",
+    btn_send: "▶ SEND MESSAGE",
+    contact_reach: "REACH ME AT",
+    footer: "© 2025 Kyla Adel Hartanto · Solo, Indonesia",
+    form_success: "✔ Message sent! I'll get back to you soon.",
+    form_error: "✖ Please fill in all fields correctly.",
+  },
+  id: {
+    nav_about: "Tentang",
+    nav_exp: "Pengalaman",
+    nav_skills: "Keahlian",
+    nav_org: "Organisasi",
+    nav_contact: "Kontak",
+    hero_tag: "Profesional Pajak",
+    hero_typing: ["Penggiat Pajak | Calon Ahli Pajak", "Mahir SAP & Power BI", "Sertifikasi Brevet A & B"],
+    btn_cv: "⬇ Unduh CV",
+    btn_contact: "✉ Hubungi Saya",
+    stat_gpa: "IPK",
+    stat_intern: "Magang",
+    stat_events: "Event Dikelola",
+    about_label: "Profil Kartu Kenalan",
+    about_title: "TENTANG SAYA",
+    about_arcana: "KEADILAN",
+    about_rank: "PERINGKAT KENALAN MAKS",
+    about_uni: "UNIVERSITAS BRAWIJAYA · PERPAJAKAN · 2021–2025",
+    about_text: "Lulusan baru Perpajakan Universitas Brawijaya (IPK 3.76/4.00) dengan pengalaman magang di bidang pajak korporat dan analisis keuangan. Mahir menggunakan SAP, DJP Online, dan Power BI. Sedang menyelesaikan Brevet A & B.",
+    exp_label: "Log Misi",
+    exp_title: "PENGALAMAN",
+    exp1_title: "MAGANG PERPAJAKAN",
+    exp1_1: "Membuat dan memproses 100+ faktur pajak untuk pelaporan pajak bulanan.",
+    exp1_2: "Menyusun dan mendistribusikan 1.000+ slip pajak penghasilan ke klien.",
+    exp1_3: "Menyiapkan laporan PPN dan PPh bulanan selama 4 bulan berturut-turut.",
+    exp1_4: "Mengarsipkan dokumen perusahaan selama 6 tahun.",
+    exp1_5: "Memantau slip pemotongan pajak yang masuk dari pelanggan.",
+    exp2_title: "MAGANG ANALIS KEUANGAN",
+    exp2_1: "Memvalidasi tarif PPh 21, 23, dan 26 dengan data keuangan internal.",
+    exp2_2: "Membuat bukti pemotongan menggunakan SAP dan DJP Online untuk kepatuhan pajak bulanan.",
+    exp2_3: "Mengelola entri COD COR di SAP dan DJP Online selama magang.",
+    exp2_4: "Melaporkan SPT bulanan dengan mencatat bukti setor melalui DJP Online.",
+    exp2_5: "Menggunakan Power BI untuk menganalisis data pajak dan membuat laporan manajemen.",
+    skills_label: "Statistik Karakter",
+    skills_title: "KEAHLIAN",
+    skills_hard: "KEAHLIAN TEKNIS",
+    skills_soft: "KEAHLIAN NON-TEKNIS",
+    skills_lang: "BAHASA",
+    skill_tax: "Kepatuhan Pajak",
+    soft1: "Komunikatif", soft2: "Pemecah Masalah", soft3: "Adaptif",
+    soft4: "Berpikir Kritis", soft5: "Berinisiatif", soft6: "Bertanggung Jawab",
+    soft7: "Disiplin", soft8: "Fleksibel", soft9: "Teliti", soft10: "Tim yang Baik",
+    lang1: "Indonesia (Asli)", lang2: "Inggris",
+    org_label: "Tim Phantom",
+    org_title: "ORGANISASI",
+    org1_title: "Staf Event Organizer",
+    org1_desc: "Mengelola 7 event tingkat nasional dan kampus termasuk konser, kompetisi, dan penjualan merchandise.",
+    org2_title: "Ketua Pelaksana",
+    org2_desc: "Memimpin event dengan 97 peserta dan 7 band, mengelola venue, konsep, dan koordinasi pihak ketiga.",
+    org3_title: "Staf Fundraising",
+    org3_desc: "Mengumpulkan dana dengan target 4 juta rupiah, mendapat 2 sponsor, dan menyelenggarakan event 500 peserta.",
+    org4_title: "CO Fundraising",
+    org4_desc: "Memimpin fundraising target 2 juta rupiah, memonitor 24 panitia, event diikuti 18 tim.",
+    org5_title: "Bendahara",
+    org5_desc: "Mengelola anggaran 2 juta rupiah untuk 14 program, menyusun proposal keuangan, dan pembukuan harian.",
+    contact_label: "Kirim Pesan",
+    contact_title: "KONTAK",
+    chat_header: "KIRIM PESAN",
+    chat_intro: "Hei! Mari terhubung. Isi formulir di bawah dan saya akan segera menghubungi kamu!",
+    form_name: "NAMA KAMU",
+    form_email: "EMAIL KAMU",
+    form_message: "PESAN",
+    placeholder_name: "Nama kamu...",
+    placeholder_email: "email@kamu.com",
+    placeholder_msg: "Tulis pesanmu di sini...",
+    btn_send: "▶ KIRIM PESAN",
+    contact_reach: "HUBUNGI SAYA DI",
+    footer: "© 2025 Kyla Adel Hartanto · Solo, Indonesia",
+    form_success: "✔ Pesan terkirim! Saya akan segera membalas.",
+    form_error: "✖ Harap isi semua kolom dengan benar.",
+  }
+};
+let currentLang = 'en';
+let typingInterval = null;
+
+function setLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+  applyLang(lang);
+  startTyping();
+}
+
+function applyLang(lang) {
+  const t = i18n[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) el.textContent = t[key];
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (t[key] !== undefined) el.placeholder = t[key];
+  });
+  // Update lang attribute for SEO
+  document.documentElement.lang = lang;
+}
+
+// TYPING ANIMATION
+let typingIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+const typingEl = document.getElementById('typing-text');
+
+function startTyping() {
+  if (typingInterval) clearInterval(typingInterval);
+  typingIndex = 0; charIndex = 0; isDeleting = false;
+  typingEl.textContent = '';
+  typeNext();
+}
+
+function typeNext() {
+  const phrases = i18n[currentLang].hero_typing;
+  const current = phrases[typingIndex % phrases.length];
+
+  if (!isDeleting) {
+    typingEl.textContent = current.substring(0, charIndex + 1);
+    charIndex++;
+    if (charIndex === current.length) {
+      setTimeout(() => { isDeleting = true; typeNext(); }, 2200);
+      return;
+    }
+  } else {
+    typingEl.textContent = current.substring(0, charIndex - 1);
+    charIndex--;
+    if (charIndex === 0) {
+      isDeleting = false;
+      typingIndex++;
+    }
+  }
+  setTimeout(typeNext, isDeleting ? 45 : 80);
+}
+
+// INIT
+setTimeout(() => {
+  applyLang('en');
+  startTyping();
+  document.getElementById('intro-overlay').style.pointerEvents = 'none';
+}, 2800);
+
+// CURSOR
+const cursor = document.getElementById('cursor');
+const cursorRing = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.transform = `translate(${mx - 6}px, ${my - 6}px)`;
+});
+function animateRing() {
+  rx += (mx - rx) * 0.15;
+  ry += (my - ry) * 0.15;
+  cursorRing.style.transform = `translate(${rx - 18}px, ${ry - 18}px)`;
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+document.querySelectorAll('a, button, .org-card, .exp-card').forEach(el => {
+  el.addEventListener('mouseenter', () => { cursorRing.style.width = '60px'; cursorRing.style.height = '60px'; });
+  el.addEventListener('mouseleave', () => { cursorRing.style.width = '36px'; cursorRing.style.height = '36px'; });
+});
+
+// HAMBURGER
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('mobile-nav').classList.toggle('open');
+});
+function closeMobile() {
+  document.getElementById('mobile-nav').classList.remove('open');
+}
+
+// SCROLL REVEAL
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      // Animate stat bars
+      entry.target.querySelectorAll('.stat-bar-fill').forEach(bar => {
+        bar.style.width = bar.dataset.val + '%';
+      });
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.reveal, .timeline-item, .org-card').forEach(el => {
+  observer.observe(el);
+});
+// Also observe skill panels for bars
+document.querySelectorAll('.skill-panel').forEach(el => observer.observe(el));
+
+// FORM SUBMIT
+function submitForm() {
+  const name = document.getElementById('form-name').value.trim();
+  const email = document.getElementById('form-email').value.trim();
+  const msg = document.getElementById('form-message').value.trim();
+  const status = document.getElementById('form-status');
+  const t = i18n[currentLang];
+
+  if (!name || !email || !msg || !email.includes('@')) {
+    status.className = 'form-status error';
+    status.textContent = t.form_error;
+    return;
+  }
+
+  // Add chat bubble
+  const msgs = document.getElementById('chat-messages');
+  const bubble = document.createElement('div');
+  bubble.className = 'chat-bubble';
+  bubble.style.alignSelf = 'flex-end';
+  bubble.style.borderLeft = 'none';
+  bubble.style.borderRight = '2px solid var(--red)';
+  bubble.textContent = msg;
+  msgs.appendChild(bubble);
+  msgs.scrollTop = msgs.scrollHeight;
+
+  // Use FormSubmit
+  const formData = new FormData();
+  formData.append('name', name);
+  formData.append('email', email);
+  formData.append('message', msg);
+  formData.append('_subject', `Portfolio Contact from ${name}`);
+  formData.append('_captcha', 'false');
+
+  fetch('https://formsubmit.co/hartantokyla7@gmail.com', {
+    method: 'POST',
+    body: formData,
+    headers: { 'Accept': 'application/json' }
+  }).then(() => {
+    status.className = 'form-status success';
+    status.textContent = t.form_success;
+    document.getElementById('form-name').value = '';
+    document.getElementById('form-email').value = '';
+    document.getElementById('form-message').value = '';
+  }).catch(() => {
+    status.className = 'form-status success';
+    status.textContent = t.form_success;
+  });
+}
+
+// PARALLAX HERO
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  const heroContent = document.querySelector('.hero-content');
+  if (heroContent) heroContent.style.transform = `translateY(${scrollY * 0.25}px)`;
+});
+</script>
+</body>
+</html>
